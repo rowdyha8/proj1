@@ -1,0 +1,66 @@
+name: Push To Heroku (No Docker) - New 1
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 1 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy 1
+        uses: akhileshns/heroku-deploy@v3.12.12 #This is the action
+        if: always()
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME_1}} #Heroku App Name that will be pushed out
+          heroku_email: ${{secrets.HEROKU_EMAIL}} #Your Heroku Login Email
+          remote_branch: master # <- Include this:
+          stack: "heroku-22"
+      - name: Deploy 2
+        uses: akhileshns/heroku-deploy@v3.12.12 #This is the action
+        if: always()
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME_2}} #Heroku App Name that will be pushed out
+          heroku_email: ${{secrets.HEROKU_EMAIL}} #Your Heroku Login Email
+          remote_branch: master # <- Include this:
+          stack: "heroku-22"
+      - name: Deploy 3
+        uses: akhileshns/heroku-deploy@v3.12.12 #This is the action
+        if: always()
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME_3}} #Heroku App Name that will be pushed out
+          heroku_email: ${{secrets.HEROKU_EMAIL}} #Your Heroku Login Email
+          remote_branch: master # <- Include this:
+          stack: "heroku-22"
+      - name: Deploy 4
+        uses: akhileshns/heroku-deploy@v3.12.12 #This is the action
+        if: always()
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: ${{secrets.HEROKU_APP_NAME_4}} #Heroku App Name that will be pushed out
+          heroku_email: ${{secrets.HEROKU_EMAIL}} #Your Heroku Login Email
+          remote_branch: master # <- Include this:
+          stack: "heroku-22"
+      - name: Ping URL
+        uses: nerdify/ping-action@1.0.0
+        env:
+          PING_URL: https://${{secrets.HEROKU_APP_NAME_1}}.herokuapp.com/
+      - name: Ping URL 2
+        uses: nerdify/ping-action@1.0.0
+        env:
+          PING_URL: https://${{secrets.HEROKU_APP_NAME_2}}.herokuapp.com/
+      - name: Ping URL 3
+        uses: nerdify/ping-action@1.0.0
+        env:
+          PING_URL: https://${{secrets.HEROKU_APP_NAME_3}}.herokuapp.com/
+      - name: Ping URL 4
+        uses: nerdify/ping-action@1.0.0
+        env:
+          PING_URL: https://${{secrets.HEROKU_APP_NAME_4}}.herokuapp.com/
